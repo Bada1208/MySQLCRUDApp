@@ -6,7 +6,7 @@ Specialty
 Account
 AccountStatus (enum ACTIVE, BANNED, DELETED)
 
-Customer-> Set<Specialty> specialties+ Account account
+Customer-> Set<Specialty> specialties.sql+ Account account
 Account -> AccountStatus
 Требования:
 
