@@ -1,6 +1,6 @@
 use mysqlcrudapp;
-create table Specialties
+create table if not exists Specialties
 (
-    Id        int,
+    Id        bigint,
     Specialty varchar(100)
 );

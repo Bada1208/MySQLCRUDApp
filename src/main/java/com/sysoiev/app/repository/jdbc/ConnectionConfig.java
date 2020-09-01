@@ -13,9 +13,9 @@ public class ConnectionConfig {
         Connection connection = null;
 
         try {
-            Class.forName("om.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Properties properties = new Properties();
-            try (InputStream inputStream = JdbcSpecialtyRepository.class.getResourceAsStream("/database.properties")) {
+            try (InputStream inputStream = JdbcSpecialtyRepository.class.getResourceAsStream("/db.properties")) {
                 properties.load(inputStream);
             }
             String url = properties.getProperty("url");
