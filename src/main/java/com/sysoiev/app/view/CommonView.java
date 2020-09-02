@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class CommonView {
 
-    /*private AccountView accountView;
-    private CustomerView customerView;*/
+    private AccountView accountView;
+    /*private CustomerView customerView;*/
     private SpecialtyView specialtyView;
     private static CommonView view;
 
     private CommonView() {
         specialtyView = new SpecialtyView();
-//        accountView = new AccountView();
+        accountView = new AccountView();
 //        customerView = new CustomerView();
     }
 
@@ -38,10 +38,10 @@ public class CommonView {
                 case 1:
                     runSpecialty();
                     break;
-               /* case 2:
+                case 2:
                     runAccount();
                     break;
-                case 3:
+               /* case 3:
                     runCustomer();
                     break;*/
                 case 4:
@@ -58,11 +58,11 @@ public class CommonView {
         specialtyView.run();
     }
 
-   /* public void runAccount() {
+    public void runAccount() {
         accountView.run();
     }
 
-    public void runCustomer() {
+   /* public void runCustomer() {
         customerView.run();
     }*/
 

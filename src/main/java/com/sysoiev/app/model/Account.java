@@ -3,7 +3,10 @@ package com.sysoiev.app.model;
 public class Account {
 
     private Long id;
+
     private AccountStatus accountStatus;
+    public Account() {
+    }
 
     public Account(Long id) {
         this.id = id;
@@ -15,6 +18,14 @@ public class Account {
 
     public Account(Long id, AccountStatus accountStatus) {
         this.id = id;
+        this.accountStatus = accountStatus;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
 
