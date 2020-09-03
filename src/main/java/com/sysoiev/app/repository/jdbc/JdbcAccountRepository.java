@@ -23,8 +23,6 @@ public class JdbcAccountRepository implements AccountRepository {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 account.setId(resultSet.getLong("Id"));
-                //preparedStatement.setString(1, MY_ENUM.name());
-                // MyEnum enumVal =  MyEnum.valueOf(rs.getString("EnumColumn"));
                 account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("AccountStatus")));
             }
 
@@ -89,9 +87,10 @@ public class JdbcAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Account update(Account item) {
+    public void update(Account item) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE accounts SET " +
@@ -119,7 +118,6 @@ public class JdbcAccountRepository implements AccountRepository {
                 }
             }
         }
-        return item;
     }
 
     @Override

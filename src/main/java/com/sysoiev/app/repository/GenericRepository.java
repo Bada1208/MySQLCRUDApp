@@ -8,7 +8,7 @@ public interface GenericRepository<T, ID> {
 
     void deleteById(ID id) ;
 
-    T update(T item) ;
+    void update(T item) ;
 
     T save(T item);
 

@@ -87,7 +87,7 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
     }
 
     @Override
-    public Specialty update(Specialty item) {
+    public void update(Specialty item) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -117,7 +117,6 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
                 }
             }
         }
-        return item;
     }
 
     @Override
