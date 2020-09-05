@@ -90,13 +90,12 @@ public class JdbcAccountRepository implements AccountRepository {
     public void update(Account item) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE accounts SET " +
                     "AccountStatus = ? WHERE Id = ?");
 
-            preparedStatement.setString(1, item.getAccountStatus().toString());
+            preparedStatement.setString(1, item.getAccountStatus().name());
             preparedStatement.setLong(2, item.getId());
 
             preparedStatement.executeUpdate();
@@ -130,7 +129,6 @@ public class JdbcAccountRepository implements AccountRepository {
             preparedStatement = connection.prepareStatement("INSERT INTO accounts (id)" +
                     "VALUES (?)");
             preparedStatement.setLong(1, item.getId());
-            //preparedStatement.setObject(2, item.getAccountStatus());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
