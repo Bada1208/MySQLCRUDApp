@@ -22,8 +22,8 @@ public class JdbcAccountRepository implements AccountRepository {
             preparedStatement.setLong(1, aLong);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                account.setId(resultSet.getLong("Id"));
-                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("AccountStatus")));
+                account.setId(resultSet.getLong("id"));
+                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
             }
 
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class JdbcAccountRepository implements AccountRepository {
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE accounts SET " +
-                    "AccountStatus = ? WHERE Id = ?");
+                    "account_status = ? WHERE Id = ?");
 
             preparedStatement.setString(1, item.getAccountStatus().name());
             preparedStatement.setLong(2, item.getId());
@@ -166,8 +166,8 @@ public class JdbcAccountRepository implements AccountRepository {
 
             while (resultSet.next()) {
                 Account account = new Account();
-                account.setId(resultSet.getLong("Id"));
-                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("AccountStatus")));
+                account.setId(resultSet.getLong("id"));
+                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
 
                 accounts.add(account);
             }
