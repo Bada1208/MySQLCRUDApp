@@ -1,10 +1,9 @@
 package com.sysoiev.app.model;
 
 public class Account {
-
     private Long id;
-
     private AccountStatus accountStatus;
+
     public Account() {
     }
 

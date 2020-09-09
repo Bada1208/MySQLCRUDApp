@@ -4,18 +4,24 @@ import java.util.Set;
 
 public class Customer {
     private Long id;
-
     private String name;
     private String surname;
     private Account account;
     private Set<Specialty> specialties;
 
-    private Customer(CustomerBuilder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.surname = builder.surname;
-        this.specialties = builder.specialties;
-        this.account = builder.account;
+    public Customer() {
+    }
+
+    public Customer(Long id) {
+        this.id = id;
+    }
+
+    public Customer(Long id, String name, String surname, Set<Specialty> specialties, Account account) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.specialties = specialties;
+        this.account = account;
     }
 
     public Long getId() {
@@ -71,7 +77,7 @@ public class Customer {
         return id + "/ " + name + "/ " + surname + "/ " + getSpecialties() + " /" + account.getId();
     }
 
-    public static class CustomerBuilder {
+   /* public static class CustomerBuilder {
         private Long id;
         private String name;
         private String surname;
@@ -97,5 +103,5 @@ public class Customer {
             Customer customer = new Customer(this);
             return customer;
         }
-    }
+    }*/
 }

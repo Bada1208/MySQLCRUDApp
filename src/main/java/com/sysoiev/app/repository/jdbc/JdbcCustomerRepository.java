@@ -19,10 +19,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
     @Override
     public Customer getById(Long aLong) {
-        //return new Customer.CustomerBuilder(name, surname, specialtySet, account).id(id).buildCustomer();
-        Customer customer = new Customer.CustomerBuilder().id(aLong).buildCustomer();
-        Account account = new Account();
-        Set<Specialty> specialtySet = new HashSet<>();
+        Customer customer = new Customer();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -42,8 +39,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
                 customer.setId(resultSet.getLong("customers.id"));
                 customer.setName(resultSet.getString("customers.name"));
                 customer.setSurname(resultSet.getString("customers.surname"));
-                // customer.setSpecialties(specialtySet.add(resultSet.getString("customer_specialties.specialties_id")));
-                customer.setAccount(customer.getAccount().getId(resultSet.getLong("customers.account_id")));
+                customer.setSpecialties(getByIdCustomerSpecialties(aLong));
+                //account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
+                Account account = new Account();
+                customer.setAccount(account.getId(resultSet.getLong("customers.account_id"))));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -262,7 +261,52 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
     @Override
     public List<Customer> getAll() {
-        return null;
+        List<Customer> customerList = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionConfig.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM specialties");
+
+            while (resultSet.next()) {
+                Customer customer = new Customer.CustomerBuilder().buildCustomer();
+                customer.setId(resultSet.getLong("Id"));
+
+                customer.setSpecialty(resultSet.getString("Specialty"));
+
+                customerList.add(cu);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return customerList;
     }
 
     public Set<Specialty> getAllCustomerSpecialties() {
