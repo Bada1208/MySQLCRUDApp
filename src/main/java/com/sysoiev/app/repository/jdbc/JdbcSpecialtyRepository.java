@@ -2,6 +2,7 @@ package com.sysoiev.app.repository.jdbc;
 
 import com.sysoiev.app.model.Specialty;
 import com.sysoiev.app.repository.SpecialtiesRepository;
+import com.sysoiev.app.util.ConnectionConfig;
 
 import java.sql.*;
 import java.util.ArrayList;

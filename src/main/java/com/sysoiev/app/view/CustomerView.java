@@ -70,7 +70,7 @@ public class CustomerView {
         System.out.println("Enter id of account :");
         Long idAccount = Long.parseLong(scanner.next());
         Account account = new Account(idAccount);
-        Customer newCustomer = new Customer.CustomerBuilder(name, surname, specialtySet, account).id(id).buildCustomer();
+        Customer newCustomer = new Customer(id,name, surname, specialtySet, account);
         customerController.saveCustomer(newCustomer);
     }
 
@@ -105,7 +105,7 @@ public class CustomerView {
         System.out.println("Enter id of account :");
         Long idAccount = Long.parseLong(scanner.next());
         Account account = new Account(idAccount);
-        Customer newCustomer = new Customer.CustomerBuilder(name, surname, specialtySet, account).id(id).buildCustomer();
+        Customer newCustomer = new Customer(id,name, surname, specialtySet, account);
         customerController.updateCustomer(newCustomer);
     }
 

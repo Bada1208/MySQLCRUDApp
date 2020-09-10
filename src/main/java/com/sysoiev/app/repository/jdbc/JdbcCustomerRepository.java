@@ -6,6 +6,8 @@ import com.sysoiev.app.model.Specialty;
 import com.sysoiev.app.repository.AccountRepository;
 import com.sysoiev.app.repository.CustomerRepository;
 import com.sysoiev.app.repository.SpecialtiesRepository;
+import com.sysoiev.app.util.ConnectionConfig;
+import com.sysoiev.app.util.mappers.CustomerMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,13 +38,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                customer.setId(resultSet.getLong("customers.id"));
-                customer.setName(resultSet.getString("customers.name"));
-                customer.setSurname(resultSet.getString("customers.surname"));
-                customer.setSpecialties(getByIdCustomerSpecialties(aLong));
-                //account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
-                Account account = new Account();
-                customer.setAccount(account.getId(resultSet.getLong("customers.account_id"))));
+                CustomerMapper.mapperCustomer(resultSet);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -261,7 +257,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
     @Override
     public List<Customer> getAll() {
-        List<Customer> customerList = new ArrayList<>();
+      /*  List<Customer> customerList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -307,8 +303,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
         }
 
         return customerList;
+    }*/
+        List<Customer> customerList = new ArrayList<>();
+        return customerList;
     }
-
     public Set<Specialty> getAllCustomerSpecialties() {
         Set<Specialty> specialties = new HashSet<>();
         Connection connection = null;

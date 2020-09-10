@@ -3,6 +3,7 @@ package com.sysoiev.app.repository.jdbc;
 import com.sysoiev.app.model.Account;
 import com.sysoiev.app.model.AccountStatus;
 import com.sysoiev.app.repository.AccountRepository;
+import com.sysoiev.app.util.ConnectionConfig;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package com.sysoiev.app.repository.jdbc;
+package com.sysoiev.app.util;
+
+import com.sysoiev.app.repository.jdbc.JdbcSpecialtyRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
