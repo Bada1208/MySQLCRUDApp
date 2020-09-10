@@ -15,6 +15,7 @@ create table if not exists customer_specialties
     foreign key (specialty_id) references specialties (id)
 );
 drop table customers;
+drop table customer_specialties;
 insert into customers
 values (1, 'ivan', 'ivanov', 2);
 insert into customers values (2, 'vasiliy', 'vasev', 3);

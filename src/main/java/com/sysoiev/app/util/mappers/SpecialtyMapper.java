@@ -12,4 +12,9 @@ public class SpecialtyMapper {
         specialty.setSpecialty(resultSet.getString("Specialty"));
         return specialty;
     }
+    public static Specialty mapperSpecialtyId(ResultSet resultSet) throws SQLException {
+        Specialty specialty=new Specialty();
+        specialty.setId(resultSet.getLong("Id"));
+        return specialty;
+    }
 }

@@ -3,6 +3,7 @@ package com.sysoiev.app.repository.jdbc;
 import com.sysoiev.app.model.Specialty;
 import com.sysoiev.app.repository.SpecialtiesRepository;
 import com.sysoiev.app.util.ConnectionConfig;
+import com.sysoiev.app.util.mappers.SpecialtyMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
             preparedStatement.setLong(1, aLong);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                specialty.setId(resultSet.getLong("Id"));
-                specialty.setSpecialty(resultSet.getString("Specialty"));
+                specialty = SpecialtyMapper.mapperSpecialty(resultSet);
             }
 
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO specialties (id,specialty)" +
                     "VALUES (?,?)");
-            preparedStatement.setLong(1,item.getId());
+            preparedStatement.setLong(1, item.getId());
             preparedStatement.setString(2, item.getSpecialty());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
@@ -167,11 +167,7 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
             resultSet = statement.executeQuery("SELECT * FROM specialties");
 
             while (resultSet.next()) {
-                Specialty specialty = new Specialty();
-                specialty.setId(resultSet.getLong("Id"));
-                specialty.setSpecialty(resultSet.getString("Specialty"));
-
-                specialties.add(specialty);
+                specialties.add(SpecialtyMapper.mapperSpecialty(resultSet));
             }
 
         } catch (Exception e) {

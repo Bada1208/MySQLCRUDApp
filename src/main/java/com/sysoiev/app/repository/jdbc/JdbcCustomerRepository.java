@@ -257,7 +257,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
     @Override
     public List<Customer> getAll() {
-      /*  List<Customer> customerList = new ArrayList<>();
+        List<Customer> customerList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -265,15 +265,14 @@ public class JdbcCustomerRepository implements CustomerRepository {
         try {
             connection = ConnectionConfig.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM specialties");
+            resultSet = statement.executeQuery(
+                    "select customers.id, customers.name, customers.surname, customer_specialties.specialty_id, customers.account_id\n" +
+                            "from customers\n" +
+                            "         join customer_specialties on\n" +
+                            "         customer_specialties.customer_id = customers.id ;");
 
             while (resultSet.next()) {
-                Customer customer = new Customer.CustomerBuilder().buildCustomer();
-                customer.setId(resultSet.getLong("Id"));
-
-                customer.setSpecialty(resultSet.getString("Specialty"));
-
-                customerList.add(cu);
+                customerList.add(CustomerMapper.mapperCustomer(resultSet));
             }
 
         } catch (Exception e) {
@@ -303,10 +302,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
         }
 
         return customerList;
-    }*/
-        List<Customer> customerList = new ArrayList<>();
-        return customerList;
     }
+
     public Set<Specialty> getAllCustomerSpecialties() {
         Set<Specialty> specialties = new HashSet<>();
         Connection connection = null;

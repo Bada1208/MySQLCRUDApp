@@ -4,6 +4,7 @@ import com.sysoiev.app.model.Account;
 import com.sysoiev.app.model.AccountStatus;
 import com.sysoiev.app.repository.AccountRepository;
 import com.sysoiev.app.util.ConnectionConfig;
+import com.sysoiev.app.util.mappers.AccountMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ public class JdbcAccountRepository implements AccountRepository {
             preparedStatement.setLong(1, aLong);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                account.setId(resultSet.getLong("id"));
-                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
+                account = AccountMapper.mapperAccount(resultSet);
             }
 
         } catch (Exception e) {
@@ -166,11 +166,7 @@ public class JdbcAccountRepository implements AccountRepository {
             resultSet = statement.executeQuery("SELECT * FROM accounts");
 
             while (resultSet.next()) {
-                Account account = new Account();
-                account.setId(resultSet.getLong("id"));
-                account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
-
-                accounts.add(account);
+                accounts.add(AccountMapper.mapperAccount(resultSet));
             }
 
         } catch (Exception e) {

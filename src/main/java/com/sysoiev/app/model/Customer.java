@@ -77,31 +77,4 @@ public class Customer {
         return id + "/ " + name + "/ " + surname + "/ " + getSpecialties() + " /" + account.getId();
     }
 
-   /* public static class CustomerBuilder {
-        private Long id;
-        private String name;
-        private String surname;
-        private Account account;
-        private Set<Specialty> specialties;
-
-        public CustomerBuilder() {
-        }
-
-        public CustomerBuilder(String name, String surname, Set<Specialty> specialties, Account account) {
-            this.name = name;
-            this.surname = surname;
-            this.specialties = specialties;
-            this.account = account;
-        }
-
-        public CustomerBuilder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Customer buildCustomer() {
-            Customer customer = new Customer(this);
-            return customer;
-        }
-    }*/
 }
