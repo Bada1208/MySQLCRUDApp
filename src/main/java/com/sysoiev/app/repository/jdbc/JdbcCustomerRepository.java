@@ -1,6 +1,5 @@
 package com.sysoiev.app.repository.jdbc;
 
-import com.sysoiev.app.model.Account;
 import com.sysoiev.app.model.Customer;
 import com.sysoiev.app.model.Specialty;
 import com.sysoiev.app.repository.AccountRepository;
@@ -8,7 +7,6 @@ import com.sysoiev.app.repository.CustomerRepository;
 import com.sysoiev.app.repository.SpecialtiesRepository;
 import com.sysoiev.app.util.ConnectionConfig;
 import com.sysoiev.app.util.mappers.CustomerMapper;
-import com.sysoiev.app.util.mappers.SpecialtyMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -176,7 +174,6 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public Customer save(Customer item) {
         Connection connection = null;
         PreparedStatement preparedStatementCustomer = null;
-        PreparedStatement preparedStatementSpecialty = null;
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatementCustomer = connection.prepareStatement("INSERT INTO customers (id,name,surname,account_id)" +
