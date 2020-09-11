@@ -7,13 +7,14 @@ import java.sql.SQLException;
 
 public class SpecialtyMapper {
     public static Specialty mapperSpecialty(ResultSet resultSet) throws SQLException {
-        Specialty specialty=new Specialty();
+        Specialty specialty = new Specialty();
         specialty.setId(resultSet.getLong("Id"));
         specialty.setSpecialty(resultSet.getString("Specialty"));
         return specialty;
     }
+
     public static Specialty mapperSpecialtyId(ResultSet resultSet) throws SQLException {
-        Specialty specialty=new Specialty();
+        Specialty specialty = new Specialty();
         specialty.setId(resultSet.getLong("Id"));
         return specialty;
     }

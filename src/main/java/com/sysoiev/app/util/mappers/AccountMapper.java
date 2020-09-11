@@ -13,6 +13,7 @@ public class AccountMapper {
         account.setAccountStatus(AccountStatus.valueOf(resultSet.getString("account_status")));
         return account;
     }
+
     public static Account mapperAccountId(ResultSet resultSet) throws SQLException {
         Account account = new Account();
         account.setId(resultSet.getLong("id"));

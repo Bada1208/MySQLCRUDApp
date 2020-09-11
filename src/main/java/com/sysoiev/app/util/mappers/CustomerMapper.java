@@ -1,6 +1,5 @@
 package com.sysoiev.app.util.mappers;
 
-import com.sysoiev.app.model.Account;
 import com.sysoiev.app.model.Customer;
 import com.sysoiev.app.model.Specialty;
 
