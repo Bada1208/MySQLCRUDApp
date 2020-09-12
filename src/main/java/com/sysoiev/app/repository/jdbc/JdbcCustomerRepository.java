@@ -9,10 +9,7 @@ import com.sysoiev.app.util.ConnectionConfig;
 import com.sysoiev.app.util.mappers.CustomerMapper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class JdbcCustomerRepository implements CustomerRepository {
     private SpecialtiesRepository specialtiesRepository = new JdbcSpecialtyRepository();
@@ -64,8 +61,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
                 }
             }
         }
-
-        return customer;
+        if (customer == null) {
+            Optional<Customer> empty = Optional.empty();
+            return empty.orElseThrow(NullPointerException::new);
+        } else return customer;
     }
 
     @Override
@@ -215,8 +214,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
                     "VALUES (?,?)");
-            preparedStatement.setLong(1, item.getId());
-            preparedStatement.setString(2, item.getSpecialty());
+            preparedStatement.setLong(1, item.getCustomerId());
+            preparedStatement.setLong(2, item.getId());
             specialties.add(item);
             preparedStatement.executeUpdate();
         } catch (Exception e) {

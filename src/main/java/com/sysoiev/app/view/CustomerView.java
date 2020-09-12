@@ -47,19 +47,26 @@ public class CustomerView {
         String name = scanner.next();
         System.out.println("Enter surname :");
         String surname = scanner.next();
-        System.out.println("Enter id of specialty :");
+        System.out.println("Enter id of account :");
+        Long idAccount = Long.parseLong(scanner.next());
+        Account account = new Account(idAccount);
         Set<Specialty> specialtySet = new HashSet<>();
+        System.out.println("Enter id of customer in order to link specialty :");
+        Long idCustomer = Long.parseLong(scanner.next());
+        System.out.println("Enter id of specialty :");
         Long idSpecialty = Long.parseLong(scanner.next());
-        specialtySet.add(new Specialty(idSpecialty));
+        specialtySet.add(new Specialty(idCustomer,idSpecialty));
         boolean go = true;
         while (go) {
-            System.out.println("Do You want to add new id of specialty? 1.Yes 2.No");
+            System.out.println("Do You want to add one more id of specialty? 1.Yes 2.No");
             String yesOrNo = scanner.next();
             switch (yesOrNo) {
                 case ("1"):
+                    System.out.println("Enter id of customer in order to link specialty :");
+                    Long newIdCustomer = Long.parseLong(scanner.next());
                     System.out.println("Enter id of new specialty :");
                     Long newIdSpecialty = Long.parseLong(scanner.next());
-                    specialtySet.add(new Specialty(newIdSpecialty));
+                    specialtySet.add(new Specialty(newIdCustomer,newIdSpecialty));
                     break;
                 case ("2"):
                     System.out.println("You choose do not add new specialty");
@@ -67,9 +74,6 @@ public class CustomerView {
                     break;
             }
         }
-        System.out.println("Enter id of account :");
-        Long idAccount = Long.parseLong(scanner.next());
-        Account account = new Account(idAccount);
         Customer newCustomer = new Customer(id,name, surname, specialtySet, account);
         customerController.saveCustomer(newCustomer);
     }
@@ -81,6 +85,8 @@ public class CustomerView {
         String name = scanner.next();
         System.out.println("Enter surname :");
         String surname = scanner.next();
+        System.out.println("Enter id of account :");
+        Long idAccount = Long.parseLong(scanner.next());
         System.out.println("Enter id of specialty :");
         Set<Specialty> specialtySet = new HashSet<>();
         Long idSpecialty = Long.parseLong(scanner.next());
@@ -102,8 +108,6 @@ public class CustomerView {
                     break;
             }
         }
-        System.out.println("Enter id of account :");
-        Long idAccount = Long.parseLong(scanner.next());
         Account account = new Account(idAccount);
         Customer newCustomer = new Customer(id,name, surname, specialtySet, account);
         customerController.updateCustomer(newCustomer);

@@ -2,6 +2,7 @@ package com.sysoiev.app.repository.jdbc;
 
 import com.sysoiev.app.model.Account;
 import com.sysoiev.app.model.AccountStatus;
+import com.sysoiev.app.model.Customer;
 import com.sysoiev.app.repository.AccountRepository;
 import com.sysoiev.app.util.ConnectionConfig;
 import com.sysoiev.app.util.mappers.AccountMapper;
@@ -9,6 +10,7 @@ import com.sysoiev.app.util.mappers.AccountMapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JdbcAccountRepository implements AccountRepository {
     @Override
@@ -53,7 +55,10 @@ public class JdbcAccountRepository implements AccountRepository {
             }
         }
 
-        return account;
+        if (account==null) {
+            Optional<Account> empty = Optional.empty();
+            return empty.orElseThrow(NullPointerException::new);
+        } else return account;
     }
 
     @Override

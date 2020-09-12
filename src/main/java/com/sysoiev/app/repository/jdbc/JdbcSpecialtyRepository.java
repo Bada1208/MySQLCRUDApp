@@ -1,5 +1,6 @@
 package com.sysoiev.app.repository.jdbc;
 
+import com.sysoiev.app.model.Customer;
 import com.sysoiev.app.model.Specialty;
 import com.sysoiev.app.repository.SpecialtiesRepository;
 import com.sysoiev.app.util.ConnectionConfig;
@@ -8,6 +9,7 @@ import com.sysoiev.app.util.mappers.SpecialtyMapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JdbcSpecialtyRepository implements SpecialtiesRepository {
 
@@ -53,7 +55,10 @@ public class JdbcSpecialtyRepository implements SpecialtiesRepository {
             }
         }
 
-        return specialty;
+        if (specialty == null) {
+            Optional<Specialty> empty = Optional.empty();
+            return empty.orElseThrow(NullPointerException::new);
+        } else return specialty;
     }
 
     @Override
