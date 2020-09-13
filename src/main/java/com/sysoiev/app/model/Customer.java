@@ -39,7 +39,9 @@ public class Customer {
     public void setSpecialties(Set<Specialty> specialties) {
         this.specialties = specialties;
     }
-
+    public Set<Specialty> getCustomerSpecialties() {
+        return specialties;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -63,6 +65,7 @@ public class Customer {
     public Account getAccount() {
         return account;
     }
+
 
     public String getSpecialties() {
         String specialtyString = "";

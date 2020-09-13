@@ -105,12 +105,13 @@ public class JdbcCustomerRepository implements CustomerRepository {
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE customers SET " +
-                    "id=?,name=?,surname=?,account_id = ? WHERE Id = ?");
-            preparedStatement.setLong(1, item.getId());
-            preparedStatement.setString(2, item.getName());
-            preparedStatement.setString(3, item.getSurname());
-            preparedStatement.setLong(4, item.getAccount().getId());
-            Set<Specialty> specialtySet = updateCustomerSpecialties(new Specialty());
+                    "name=?,surname=?,account_id = ? WHERE Id = ?");
+
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setString(2, item.getSurname());
+            preparedStatement.setLong(3, item.getAccount().getId());
+            preparedStatement.setLong(4, item.getId());
+            Set<Specialty> specialtySet = updateCustomerSpecialties(item.getCustomerSpecialties());
             item.setSpecialties(specialtySet);
 
 
@@ -135,10 +136,11 @@ public class JdbcCustomerRepository implements CustomerRepository {
         }
     }
 
-    public Set<Specialty> updateCustomerSpecialties(Specialty item) {
+    public Set<Specialty> updateCustomerSpecialties(Set<Specialty> specialtySet) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        Set<Specialty> specialtySet = new HashSet<>();
+        specialtySet = new HashSet<>();
+        Specialty item = new Specialty();
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE customer_specialties SET " +
@@ -181,8 +183,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
             preparedStatementCustomer.setString(2, item.getName());
             preparedStatementCustomer.setString(3, item.getSurname());
             preparedStatementCustomer.setLong(4, item.getAccount().getId());
-            saveCustomerSpecialties(new Specialty());
             preparedStatementCustomer.executeUpdate();
+            saveCustomerSpecialties(item.getCustomerSpecialties());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -205,19 +207,22 @@ public class JdbcCustomerRepository implements CustomerRepository {
         return item;
     }
 
-    public Set<Specialty> saveCustomerSpecialties(Specialty item) {
+    public Set<Specialty> saveCustomerSpecialties(Set<Specialty> customerSpecialties) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        Set<Specialty> specialties = new HashSet<>();
-
+        customerSpecialties = new HashSet<>();
+        Specialty item = new Specialty();
         try {
+
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
                     "VALUES (?,?)");
             preparedStatement.setLong(1, item.getCustomerId());
             preparedStatement.setLong(2, item.getId());
-            specialties.add(item);
+            customerSpecialties.add(item);
             preparedStatement.executeUpdate();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -237,7 +242,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
                 }
             }
         }
-        return specialties;
+        return customerSpecialties;
     }
 
     @Override
@@ -289,51 +294,4 @@ public class JdbcCustomerRepository implements CustomerRepository {
         return customerList;
     }
 
-    public Set<Specialty> getAllCustomerSpecialties() {
-        Set<Specialty> specialties = new HashSet<>();
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = ConnectionConfig.getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM customer_specialties");
-
-            while (resultSet.next()) {
-                Specialty specialty = new Specialty();
-                specialty.setId(resultSet.getLong("customer_id"));
-                specialty.setSpecialty(resultSet.getString("customer_specialties"));
-
-                specialties.add(specialty);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return specialties;
-    }
 }

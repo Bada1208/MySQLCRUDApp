@@ -1,4 +1,5 @@
 create database MySQlCRUDApp;
+
 use MySQlCRUDApp;
 drop database MySQlCRUDApp;
 create table accounts
