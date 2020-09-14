@@ -1,16 +1,10 @@
 package com.sysoiev.app.model;
 
 public class Specialty {
-    private Long customerId;
     private Long id;
     private String specialty;
 
     public Specialty() {
-    }
-
-    public Specialty(Long customerId, Long id) {
-        this.customerId = customerId;
-        this.id = id;
     }
 
     public Specialty(Long id) {
@@ -20,14 +14,6 @@ public class Specialty {
     public Specialty(Long id, String specialty) {
         this.id = id;
         this.specialty = specialty;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public Long getId() {

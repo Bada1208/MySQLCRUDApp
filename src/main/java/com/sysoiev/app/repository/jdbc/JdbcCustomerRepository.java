@@ -111,10 +111,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
             preparedStatement.setString(2, item.getSurname());
             preparedStatement.setLong(3, item.getAccount().getId());
             preparedStatement.setLong(4, item.getId());
-            Set<Specialty> specialtySet = updateCustomerSpecialties(item.getCustomerSpecialties());
-            item.setSpecialties(specialtySet);
-
-
+            item.setSpecialties(updateCustomerSpecialties(item.getCustomerSpecialties(),item,item.getCustomerSpecialties()));
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,19 +133,17 @@ public class JdbcCustomerRepository implements CustomerRepository {
         }
     }
 
-    public Set<Specialty> updateCustomerSpecialties(Set<Specialty> specialtySet) {
+    private Set<Specialty> updateCustomerSpecialties(Set<Specialty> specialtySet,Customer customer,Specialty specialty) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        specialtySet = new HashSet<>();
-        Specialty item = new Specialty();
         try {
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE customer_specialties SET " +
                     "specialty_id = ? WHERE customer_id = ?");
 
-            preparedStatement.setString(1, item.getSpecialty());
-            preparedStatement.setLong(2, item.getId());
-            specialtySet.add(item);
+            preparedStatement.setLong(1, specialty.getId());
+            preparedStatement.setLong(2, customer.getId());
+            specialtySet.add(specialty);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,19 +202,19 @@ public class JdbcCustomerRepository implements CustomerRepository {
         return item;
     }
 
-    public Set<Specialty> saveCustomerSpecialties(Set<Specialty> customerSpecialties) {
+    private Set<Specialty> saveCustomerSpecialties(Set<Specialty> customerSpecialties) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        customerSpecialties = new HashSet<>();
-        Specialty item = new Specialty();
+        Customer customer = new Customer();
+        Specialty specialty = new Specialty();
         try {
 
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
                     "VALUES (?,?)");
-            preparedStatement.setLong(1, item.getCustomerId());
-            preparedStatement.setLong(2, item.getId());
-            customerSpecialties.add(item);
+            preparedStatement.setLong(1, customer.getId());
+            preparedStatement.setLong(2, specialty.getId());
+            customerSpecialties.add(specialty);
             preparedStatement.executeUpdate();
 
 

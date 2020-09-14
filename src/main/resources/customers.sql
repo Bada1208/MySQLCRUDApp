@@ -12,7 +12,8 @@ create table if not exists customer_specialties
     customer_id  bigint not null,
     specialty_id bigint not null,
     foreign key (customer_id) references customers (id)  ON DELETE CASCADE,
-    foreign key (specialty_id) references specialties (id)
+    foreign key (specialty_id) references specialties (id),
+    UNIQUE (customer_id, specialty_id)
 );
 drop table customers;
 drop table customer_specialties;
