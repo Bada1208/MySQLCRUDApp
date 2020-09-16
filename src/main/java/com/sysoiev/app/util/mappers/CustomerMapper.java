@@ -16,7 +16,7 @@ public class CustomerMapper {
         customer.setSurname(resultSet.getString("customers.surname"));
         Set<Specialty> specialtySet = new HashSet<>();
         specialtySet.add(SpecialtyMapper.mapperSpecialtyId(resultSet));
-        customer.setSpecialties(specialtySet);
+        customer.setCustomerSpecialtiesSet(specialtySet);
         customer.setAccount(AccountMapper.mapperAccountId(resultSet));
         return customer;
     }

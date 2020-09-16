@@ -1,5 +1,6 @@
 package com.sysoiev.app.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Customer {
@@ -7,7 +8,7 @@ public class Customer {
     private String name;
     private String surname;
     private Account account;
-    private Set<Specialty> specialties;
+    private Set<Specialty> customerSpecialties = new HashSet<>();
 
     public Customer() {
     }
@@ -16,12 +17,32 @@ public class Customer {
         this.id = id;
     }
 
+    public Customer(Long id, Set<Specialty> customerSpecialties) {
+        this.id = id;
+        this.customerSpecialties = customerSpecialties;
+    }
+
     public Customer(Long id, String name, String surname, Set<Specialty> specialties, Account account) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.specialties = specialties;
+        this.customerSpecialties = specialties;
         this.account = account;
+    }
+
+    public Customer(Long id, String name, String surname, Account account) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.account = account;
+    }
+
+    public void setCustomerSpecialties(Specialty customerSpecialty) {
+        this.customerSpecialties.add(customerSpecialty);
+    }
+
+    public void setCustomerSpecialtiesSet(Set<Specialty> customerSpecialtiesSet) {
+        this.customerSpecialties = customerSpecialtiesSet;
     }
 
     public Long getId() {
@@ -36,18 +57,8 @@ public class Customer {
         this.account = account;
     }
 
-    public void setSpecialties(Set<Specialty> specialties) {
-        this.specialties = specialties;
-    }
-    public Set<Specialty> getCustomerSpecialties() {
-        return specialties;
-    }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setSpecialties(Specialty specialty) {
-        specialties.add(specialty);
     }
 
     public String getName() {
@@ -67,9 +78,13 @@ public class Customer {
     }
 
 
+    public Set<Specialty> getCustomerSpecialtiesSet() {
+        return customerSpecialties;
+    }
+
     public String getSpecialties() {
         String specialtyString = "";
-        for (Specialty s : specialties) {
+        for (Specialty s : customerSpecialties) {
             specialtyString += "{" + s.getId() + "}";
         }
         return specialtyString;

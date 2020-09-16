@@ -41,7 +41,6 @@ public class CustomerView {
 
 
     public void saveCustomer() {
-        Customer newCustomer = new Customer();
         System.out.println("Enter id : ");
         Long id = Long.parseLong(scanner.next());
         System.out.println("Enter name :");
@@ -52,20 +51,21 @@ public class CustomerView {
         Long idAccount = Long.parseLong(scanner.next());
         Account account = new Account(idAccount);
         Set<Specialty> specialtySet = new HashSet<>();
-        //System.out.println("Enter id of customer in order to link specialty :");
-        newCustomer.setId(id);
+     /*
+        System.out.println("Enter id of customer in order to link specialty :");
+        Long idCustomer = Long.parseLong(scanner.next());
         System.out.println("Enter id of specialty :");
         Long idSpecialty = Long.parseLong(scanner.next());
-        specialtySet.add(new Specialty(idSpecialty));
-        boolean go = true;
+        specialtySet.add(new Specialty(idSpecialty));*/
+        /*boolean go = true;
         while (go) {
             System.out.println("Do You want to add one more id of specialty? 1.Yes 2.No");
             String yesOrNo = scanner.next();
             switch (yesOrNo) {
                 case ("1"):
                     System.out.println("Enter id of customer in order to link specialty :");
-                    //Long newIdCustomer = Long.parseLong(scanner.next());
-                    newCustomer.setId(id);
+                    Long newIdCustomer = Long.parseLong(scanner.next());
+                    //newCustomer.setId(id);
                     System.out.println("Enter id of new specialty :");
                     Long newIdSpecialty = Long.parseLong(scanner.next());
                     specialtySet.add(new Specialty(newIdSpecialty));
@@ -75,10 +75,16 @@ public class CustomerView {
                     go = false;
                     break;
             }
-        }
-        newCustomer = new Customer(id, name, surname, specialtySet, account);
+        }*/
+        System.out.println("Enter id of customer in order to link specialty :");
+        Long idCustomer = Long.parseLong(scanner.next());
+        System.out.println("Enter id of specialty :");
+        Long idSpecialty = Long.parseLong(scanner.next());
+        specialtySet.add(new Specialty(idSpecialty));
+        Customer newCustomer = new Customer(id, name, surname, specialtySet, account);
         customerController.saveCustomer(newCustomer);
     }
+
 
     public void updateCustomer() {
         Customer newCustomer = new Customer();

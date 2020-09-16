@@ -11,16 +11,16 @@ create table if not exists customer_specialties
 (
     customer_id  bigint not null,
     specialty_id bigint not null,
-    foreign key (customer_id) references customers (id)  ON DELETE CASCADE,
+    UNIQUE (customer_id, specialty_id),
+    foreign key (customer_id) references customers (id) ,
     foreign key (specialty_id) references specialties (id)
+
 );
 drop table customers;
 drop table customer_specialties;
 insert into customers
-values (1, 'ivan', 'ivanov', 2);
-insert into customers values (2, 'vasiliy', 'vasev', 3);
-insert into customer_specialties value (1, 3), (1, 2);
-insert into customer_specialties value (2, 4);
+values (1, 'ivan', 'ivanov', 2),(2, 'vasiliy', 'vasev', 3);
+insert into customer_specialties values (1, 3), (1, 2), (2, 4);
 /*select * from developer_specialties ds LEFT JOIN developers d on ds.developer_id =d.id WHERE ds.developer_id = 1
 select d.name, s.name from developer_specialties ds LEFT JOIN developers d on ds.developer_id =d.id
 LEFT JOIN specialties s
@@ -28,6 +28,7 @@ ON ds.specialty_id = s.id
  WHERE ds.developer_id = 1*/
 select *
 from customers;
+delete from customers where id=3;
 select *
 from customer_specialties;
 
