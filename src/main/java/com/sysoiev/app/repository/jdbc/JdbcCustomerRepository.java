@@ -11,7 +11,6 @@ import com.sysoiev.app.util.mappers.CustomerMapper;
 import java.sql.*;
 import java.util.*;
 
-
 public class JdbcCustomerRepository implements CustomerRepository {
     private SpecialtiesRepository specialtiesRepository = new JdbcSpecialtyRepository();
     private AccountRepository accountRepository = new JdbcAccountRepository();
