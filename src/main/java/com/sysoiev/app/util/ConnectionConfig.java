@@ -1,5 +1,6 @@
 package com.sysoiev.app.util;
 
+import com.sysoiev.app.repository.GenericRepository;
 import com.sysoiev.app.repository.jdbc.JdbcSpecialtyRepository;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class ConnectionConfig {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Properties properties = new Properties();
-            try (InputStream inputStream = JdbcSpecialtyRepository.class.getResourceAsStream("/db.properties")) {
+            try (InputStream inputStream = GenericRepository.class.getResourceAsStream("/db.properties")) {
                 properties.load(inputStream);
             }
             String url = properties.getProperty("url");

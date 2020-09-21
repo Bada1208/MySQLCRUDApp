@@ -109,7 +109,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getSurname());
-            preparedStatement.setLong(3, item.getAccount().getId());
+            preparedStatement.setLong(3, item.getAccountId());
             preparedStatement.setLong(4, item.getId());
             // item.setSpecialties(updateCustomerSpecialties(item.getCustomerSpecialties(),item,item.getCustomerSpecialties()));
             preparedStatement.executeUpdate();
@@ -177,17 +177,9 @@ public class JdbcCustomerRepository implements CustomerRepository {
             preparedStatementCustomer.setLong(1, item.getId());
             preparedStatementCustomer.setString(2, item.getName());
             preparedStatementCustomer.setString(3, item.getSurname());
-            preparedStatementCustomer.setLong(4, item.getAccount().getId());
-
-            ArrayList<Specialty> customerSpecialties = new ArrayList<>(item.getCustomerSpecialtiesSet());
-            for (int i = 0; i < customerSpecialties.size(); i++) {
-                try (PreparedStatement preparedStatementCustomer1 = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
-                        "VALUES (?,?)")) {
-                    preparedStatementCustomer1.setLong(1, item.getId());
-                    preparedStatementCustomer1.setLong(2, customerSpecialties.get(i).getId());
-                    preparedStatementCustomer1.executeUpdate();
-                }
-            }
+            preparedStatementCustomer.setLong(4, item.getAccountId());
+            preparedStatementCustomer.executeUpdate();
+            // item.setCustomerSpecialtiesSet(saveCustomerSpecialties(item, new Specialty()));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -210,10 +202,20 @@ public class JdbcCustomerRepository implements CustomerRepository {
         return item;
     }
 
-   /* private Set<Specialty> saveCustomerSpecialties(Set<Specialty> customerSpecialties,Customer customer,Specialty specialty) {
+    private Set<Specialty> saveCustomerSpecialties(Customer customer, Specialty specialty) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        Set<Specialty> customerSpecialties = new HashSet<>();
         try {
+/*  ArrayList<Specialty> customerSpecialties = new ArrayList<>(item.getCustomerSpecialtiesSet());
+            for (int i = 0; i < customerSpecialties.size(); i++) {
+                try (PreparedStatement preparedStatementCustomer1 = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
+                        "VALUES (?,?)")) {
+                    preparedStatementCustomer1.setLong(1, item.getId());
+                    preparedStatementCustomer1.setLong(2, customerSpecialties.get(i).getId());
+                    preparedStatementCustomer1.executeUpdate();
+                }
+            }*/
 
             connection = ConnectionConfig.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO customer_specialties (customer_id,specialty_id)" +
@@ -243,7 +245,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
             }
         }
         return customerSpecialties;
-    }*/
+    }
 
     @Override
     public List<Customer> getAll() {
@@ -260,7 +262,6 @@ public class JdbcCustomerRepository implements CustomerRepository {
                             "from customers\n" +
                             "         join customer_specialties on\n" +
                             "         customer_specialties.customer_id = customers.id ;");
-
             while (resultSet.next()) {
                 customerList.add(CustomerMapper.mapperCustomer(resultSet));
             }

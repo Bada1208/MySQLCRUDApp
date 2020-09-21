@@ -13,9 +13,9 @@ public class SpecialtyMapper {
         return specialty;
     }
 
-    public static Specialty mapperSpecialtyId(ResultSet resultSet) throws SQLException {
+    /*public static Specialty mapperSpecialtyId(ResultSet resultSet) throws SQLException {
         Specialty specialty = new Specialty();
         specialty.setId(resultSet.getLong("Id"));
         return specialty;
-    }
+    }*/
 }

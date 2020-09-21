@@ -76,6 +76,10 @@ public class Customer {
     public Account getAccount() {
         return account;
     }
+    public Long getAccountId() {
+        return account.getId();
+    }
+
 
 
     public Set<Specialty> getCustomerSpecialtiesSet() {
